@@ -12,4 +12,4 @@ https://www.youtube.com/watch?v=DvlyzDZDEq4
     PORT= < whatever port you want to run it on >
 
 3. Run the command "npm install".
-4. Run the command "npm start" to start the server.
+4. Run the command "node server.js" to start the server.

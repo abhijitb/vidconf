@@ -2,10 +2,14 @@
   "name": "vidconf",
   "version": "1.0.0",
   "description": "Personal Video Conferencing",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "peerjs --port 3001 & node server.js",
     "devStart": "peerjs --port 3001 & nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abhijitb/vidconf.git"
   },
   "keywords": [
     "video conferencing",
