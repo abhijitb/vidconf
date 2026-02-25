@@ -15,11 +15,25 @@
   <script src="script.js" defer></script>
   <title>Document</title>
   <style>
+    body {
+      margin: 0;
+      display: flex;
+      height: 100vh;
+    }
+    
+    #main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
     #video-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, 300px);
       grid-auto-rows: 300px;
       grid-gap: 5px;
+      flex: 1;
+      padding: 10px;
     }
     
     video {
@@ -27,12 +41,50 @@
       height: 100%;
       object-fit: cover;
       transform: rotateY(180deg);
-      -webkit-transform: rotateY(180deg); /* Safari and Chrome */
+      -webkit-transform: rotateY(180deg);
       -moz-transform: rotateY(180deg);
+    }
+    
+    #participants-panel {
+      width: 250px;
+      background: #f5f5f5;
+      border-left: 1px solid #ddd;
+      padding: 15px;
+      overflow-y: auto;
+    }
+    
+    #participants-panel h3 {
+      margin-top: 0;
+      color: #333;
+    }
+    
+    #participants-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    #participants-list li {
+      padding: 8px;
+      margin: 5px 0;
+      background: white;
+      border-radius: 4px;
+      font-size: 14px;
+      word-break: break-all;
+    }
+    
+    #participants-list li.you {
+      background: #e3f2fd;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div id="video-grid"></div>
+  <div id="main-container">
+    <div id="video-grid"></div>
+  </div>
+  <div id="participants-panel">
+    <h3>Participants (<span id="participant-count">0</span>)</h3>
+    <ul id="participants-list"></ul>
+  </div>
 </body>
 </html>

@@ -20,7 +20,7 @@
 - [ ] Add Video On/Off toggle
 - [ ] Add Screen Sharing capability
 - [ ] Add Chat/Messaging panel
-- [ ] Add Participant List display
+- [x] Add Participant List display
 
 ## Priority 4: UI/UX Improvements
 - [ ] Implement responsive design (mobile-friendly grid)

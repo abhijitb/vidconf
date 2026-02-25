@@ -24,6 +24,25 @@ app.get('/:room', (req, res) => {
 io.on('connection', socket => {
   socket.on('join-room', (roomId, userId) => {
     socket.join(roomId)
+    socket.userId = userId
+    socket.roomId = roomId
+    
+    // Get all users in the room
+    const room = io.sockets.adapter.rooms.get(roomId)
+    const users = []
+    if (room) {
+      room.forEach(socketId => {
+        const userSocket = io.sockets.sockets.get(socketId)
+        if (userSocket && userSocket.userId) {
+          users.push(userSocket.userId)
+        }
+      })
+    }
+    
+    // Send existing users to the new user
+    socket.emit('room-users', users)
+    
+    // Notify others about new user
     socket.to(roomId).emit('user-connected', userId)
 
     socket.on('disconnect', () => {
