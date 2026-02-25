@@ -26,9 +26,10 @@ app.get('/:room', (req, res) => {
 })
 
 io.on('connection', socket => {
-  socket.on('join-room', (roomId, userId) => {
+  socket.on('join-room', (roomId, userId, userName) => {
     socket.join(roomId)
     socket.userId = userId
+    socket.userName = userName || userId.substring(0, 8)
     socket.roomId = roomId
     
     // Get all users in the room (excluding this socket)
@@ -41,7 +42,10 @@ io.on('connection', socket => {
         if (socketId === socket.id) return
         const userSocket = io.sockets.sockets.get(socketId)
         if (userSocket && userSocket.userId) {
-          users.push(userSocket.userId)
+          users.push({
+            id: userSocket.userId,
+            name: userSocket.userName
+          })
           // Check if this user ID already exists in the room
           if (userSocket.userId === userId) {
             isDuplicate = true
@@ -51,7 +55,7 @@ io.on('connection', socket => {
     }
     
     // Send existing users to the new user
-    socket.emit('room-users', users)
+    socket.emit('room-users', users, socket.userName)
     
     // Send chat history to the new user
     const chatHistory = roomChats.get(roomId) || []
@@ -59,7 +63,7 @@ io.on('connection', socket => {
     
     // Only notify others if this is a new user (not a reconnect)
     if (!isDuplicate) {
-      socket.to(roomId).emit('user-connected', userId)
+      socket.to(roomId).emit('user-connected', userId, socket.userName)
     }
 
     socket.on('disconnect', () => {
@@ -83,6 +87,7 @@ io.on('connection', socket => {
     socket.on('chat-message', message => {
       const messageData = {
         sender: userId,
+        senderName: socket.userName,
         text: message,
         timestamp: new Date().toISOString()
       }

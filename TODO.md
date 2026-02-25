@@ -16,11 +16,13 @@
 - [x] Test peer connections locally
 
 ## Priority 3: Essential Features
-- [ ] Add Mute/Unmute Audio button
-- [ ] Add Video On/Off toggle
-- [ ] Add Screen Sharing capability
+- [x] Add Mute/Unmute Audio button
+- [x] Add Video On/Off toggle
+- [ ] ~~Add Screen Sharing capability~~ (Skipped - not needed)
 - [x] Add Chat/Messaging panel with persistence
 - [x] Add Participant List display
+- [x] Add Welcome screen with user name input
+- [x] Persist user name across refreshes (sessionStorage)
 
 ## Priority 4: UI/UX Improvements
 - [ ] Implement responsive design (mobile-friendly grid)
