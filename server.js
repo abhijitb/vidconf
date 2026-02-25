@@ -13,18 +13,26 @@ app.get('/', (req, res) => {
 })
 
 app.get('/:room', (req, res) => {
-  res.render('room', { roomId: req.params.room })
+  res.render('room', { 
+    roomId: req.params.room,
+    peerHost: process.env.PEER_HOST || '/',
+    peerPort: process.env.PEER_PORT || 3001,
+    peerSecure: process.env.PEER_SECURE === 'true'
+  })
 })
 
 io.on('connection', socket => {
   socket.on('join-room', (roomId, userId) => {
     socket.join(roomId)
-    socket.to(roomId).broadcast.emit('user-connected', userId)
+    socket.to(roomId).emit('user-connected', userId)
 
     socket.on('disconnect', () => {
-      socket.to(roomId).broadcast.emit('user-disconnected', userId)
+      socket.to(roomId).emit('user-disconnected', userId)
     })
   })
 })
 
-server.listen(process.env.PORT)
+const PORT = process.env.PORT || 3000
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`)
+})
