@@ -19,7 +19,7 @@
 - [ ] Add Mute/Unmute Audio button
 - [ ] Add Video On/Off toggle
 - [ ] Add Screen Sharing capability
-- [ ] Add Chat/Messaging panel
+- [x] Add Chat/Messaging panel with persistence
 - [x] Add Participant List display
 
 ## Priority 4: UI/UX Improvements
